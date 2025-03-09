@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Steam Deck CSS Themes
 draft: false
 tags:
 ---
