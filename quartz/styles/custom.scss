@@ -19,7 +19,7 @@
     text-align: center;
 }
 
-//mobile style tweak
+// mobile style tweak
 
 @media (max-width: 800px) {
     .search {
@@ -35,5 +35,35 @@
     .page>#quartz-body .sidebar.left {
         flex-direction: column;
         padding: 1rem 0 0;
+    }
+}
+
+// print mode
+// disable all elements but article
+// force light mode - not the best way but it works
+@media print{
+    #quartz-body .sidebar.left,
+    #quartz-body .sidebar.right,
+    footer,
+    .page-footer,
+    #quartz-body > div.center > div.page-header > div > p,
+    .breadcrumb-container,
+    .page-listing
+    {
+        display: none !important;
+    }
+
+    
+    :root 
+    {
+        --light: #f2f2f5 !important;
+        --lightgray: #d9d9e0 !important;
+        --gray: #a8a8b3 !important;
+        --darkgray: #4e4e5e !important;
+        --dark: #2b2b33 !important;
+        --secondary: #5b3a75 !important;
+        --tertiary: #9d84a5 !important;
+        --highlight: #8f66a926 !important;
+        --textHighlight: #fc68 !important;
     }
 }
