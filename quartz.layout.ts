@@ -51,7 +51,7 @@ export const defaultListPageLayout: PageLayout = {
       Component.Darkmode(),
       Component.Search(),
     ]),
-    Component.Explorer(),
+    Component.Explorer({folderClickBehavior: "link"}),
   ],
   right: [],
 }
