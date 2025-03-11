@@ -4,8 +4,9 @@
 
 .forced-row {
     display: flex;
+    width: 100%;
     & .darkmode {
-        margin: 0.4rem 1rem 0.4rem 0.4rem;
+        margin: 0.2rem 1rem 0.4rem 0.4rem;
     }
 }
 
@@ -16,4 +17,23 @@
 .page-title {
     font-size: 5rem;
     text-align: center;
+}
+
+//mobile style tweak
+
+@media (max-width: 800px) {
+    .search {
+        width: 90%;
+        max-width: 100%;
+    }
+
+   .explorer button#mobile-explorer {
+        right: 0;
+        position: absolute;
+    }
+
+    .page>#quartz-body .sidebar.left {
+        flex-direction: column;
+        padding: 1rem 0 0;
+    }
 }
