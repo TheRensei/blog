@@ -1,8 +1,10 @@
 ---
 title: Steam Deck CSS Themes
-draft: false
-tags:
+publish: true
+tags: 
 ---
+
+
 Custom steam deck themes made by me.
 
 

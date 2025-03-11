@@ -1,3 +1,19 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+
+.forced-row {
+    display: flex;
+    & .darkmode {
+        margin: 0.4rem 1rem 0.4rem 0.4rem;
+    }
+}
+
+.search {
+    width: 100%;
+}
+
+.page-title {
+    font-size: 5rem;
+    text-align: center;
+}

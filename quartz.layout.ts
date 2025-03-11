@@ -8,8 +8,8 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      "Main": "https://therensei.art/",
+      GitHub: "https://github.com/TheRensei/blog",
     },
   }),
 }
@@ -25,14 +25,19 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
-    Component.Explorer(),
+    Component.Row([
+      Component.Darkmode(),
+      Component.Search(),
+    ]),
+    Component.Explorer({folderClickBehavior: "link"}),
   ],
   right: [
-    Component.Graph(),
+    //Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
+    Component.RecentNotes({
+      title: "Recent Posts"
+    }),
   ],
 }
 
@@ -42,8 +47,10 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
+    Component.Row([
+      Component.Darkmode(),
+      Component.Search(),
+    ]),
     Component.Explorer(),
   ],
   right: [],
