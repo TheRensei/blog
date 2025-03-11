@@ -1,11 +1,12 @@
 ---
-title: In the belly of the beast
+title: In the belly of the beast - coc scenario test
 publish: true
 tags:
   - scenario
   - ttrpg
   - call-of-cthulhu
   - one-shot
+icon: RaSnake
 ---
 
 >[!tldr] Overview

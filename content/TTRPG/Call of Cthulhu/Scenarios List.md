@@ -1,7 +1,8 @@
 ---
 title: Scenarios List
 publish: true
-tags:
+tags: 
+icon: RaTentacle
 ---
 
 # About
@@ -14,5 +15,5 @@ Well, to my surprise they are having quite a lot of fun! And as per their recomm
 
 # For Call of Cthulhu 7th Edition
 
-## [[content/TTRPG/Call of Cthulhu/Scenarios/In the belly of the beast/index]]
-![[content/TTRPG/Call of Cthulhu/Scenarios/In the belly of the beast/index#^a2ca75]]
+## [[In the belly of the beast - coc scenario test]]
+![[In the belly of the beast - coc scenario test#^a2ca75]]

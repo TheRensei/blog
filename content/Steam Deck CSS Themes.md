@@ -2,6 +2,7 @@
 title: Steam Deck CSS Themes
 publish: true
 tags: 
+icon: LiGamepad
 ---
 
 

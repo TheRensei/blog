@@ -1,5 +1,19 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { IconFolderOptions } from "./quartz/plugins/components/FileIcons";
+
+
+const ICON_MAPPING: Record<string, string> = {
+  Far: "font-awesome-regular",
+  Ra: "rpg-awesome",
+  Li: "lucide-icons",
+};
+
+const iconsOptions: IconFolderOptions = {
+  rootIconFolder: "quartz/static/icons",
+  default: {},
+  iconMapping: ICON_MAPPING,
+};
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -29,7 +43,10 @@ export const defaultContentPageLayout: PageLayout = {
       Component.Darkmode(),
       Component.Search(),
     ]),
-    Component.Explorer({folderClickBehavior: "link"}),
+    Component.Explorer({
+      folderClickBehavior: "collapse",
+      iconSettings: iconsOptions
+    }),
   ],
   right: [
     //Component.Graph(),
@@ -51,7 +68,10 @@ export const defaultListPageLayout: PageLayout = {
       Component.Darkmode(),
       Component.Search(),
     ]),
-    Component.Explorer({folderClickBehavior: "link"}),
+    Component.Explorer({
+      folderClickBehavior: "collapse",
+      iconSettings: iconsOptions
+    }),
   ],
   right: [],
 }

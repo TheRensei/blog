@@ -2,11 +2,22 @@
 
 // put your custom CSS here!
 
+#explorer-content ul li > a[data-hasicon="true"]:has(.file-title-icon),
+#explorer-content ul div > a[data-hasicon="true"]:has(.folder-title-icon) {
+    display: flex;
+
+    .file-title-icon,
+    .folder-title-icon
+    {
+        padding: 0.1rem 0.25rem 0 0;
+    }
+}
+
 .forced-row {
     display: flex;
     width: 100%;
     & .darkmode {
-        margin: 0.2rem 1rem 0.4rem 0.4rem;
+        margin: 0.1rem 0.25rem 0 0;
     }
 }
 
