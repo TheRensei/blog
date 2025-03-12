@@ -11,8 +11,10 @@ const ICON_MAPPING: Record<string, string> = {
 
 const iconsOptions: IconFolderOptions = {
   rootIconFolder: "quartz/static/icons",
-  default: {},
   iconMapping: ICON_MAPPING,
+  default: {
+    file: "file_def",
+  }
 };
 
 // components shared across all pages

@@ -9,7 +9,12 @@
     .file-title-icon,
     .folder-title-icon
     {
-        padding: 0.1rem 0.25rem 0 0;
+        margin: auto 0.4rem auto 0;
+
+        svg
+        {
+            display: block;
+        }
     }
 }
 
@@ -17,7 +22,7 @@
     display: flex;
     width: 100%;
     & .darkmode {
-        margin: 0.1rem 0.25rem 0 0;
+        margin: auto 0.25rem auto 0;
     }
 }
 
@@ -53,19 +58,27 @@ body:before {
 
 @media (max-width: 800px) {
     .search {
-        width: 90%;
         max-width: 100%;
+        margin-right: 40px;
     }
 
    .explorer button#mobile-explorer {
         right: 0;
         position: absolute;
+        top: 3.5rem;
     }
 
     .page>#quartz-body .sidebar.left {
         flex-direction: column;
-        padding: 1rem 0 0;
+        margin: 0 -1rem 0 -1rem;
+        padding: 1rem;
+        background: linear-gradient(var(--light),86%, transparent);
     }
+
+    .page-title {
+        font-size: 2rem;
+    }
+    
 }
 
 // print mode

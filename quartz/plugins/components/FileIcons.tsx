@@ -10,6 +10,11 @@ export type IconFolderOptions = {
    * Set to `undefined` to disable (default)
    */
   rootIconFolder?: string
+  /** Icon packs used - Prefix : "Folder" eg Far: "font-awesome-regular"
+    * their prefixes used by Iconize eg. "Far"
+    * and their corresponding folders inside the rootIconFolder  
+    * */
+  iconMapping?: Record<string, string>
   /** Default icon if needed */
   default: {
     /** Default icon for file, used in ArticleTitle for example, without root rootIconFolder string
@@ -24,12 +29,6 @@ export type IconFolderOptions = {
      */
     folder?: string
   }
-
-  /** Icon packs used - Prefix : "Folder" eg Far: "font-awesome-regular"
-    * their prefixes used by Iconize eg. "Far"
-    * and their corresponding folders inside the rootIconFolder  
-    * */
-  iconMapping?: Record<string, string>
 }
 
 export function getIconAsSVG(opts: Partial<IconFolderOptions>, iconType?: string) {
@@ -79,6 +78,7 @@ export function getIconForNodes(node: FileNode, iconSettings?: IconFolderOptions
       iconType = iconSettings?.default?.folder
     }
   }
+  
   const iconPath =
     hasIcon && iconSettings?.rootIconFolder ? `${iconSettings.rootIconFolder}/${iconType}.svg` : ""
     let iconAsSVG: string | null = null
