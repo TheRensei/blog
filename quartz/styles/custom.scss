@@ -72,7 +72,7 @@ body:before {
         flex-direction: column;
         margin: 0 -1rem 0 -1rem;
         padding: 1rem;
-        background: linear-gradient(var(--light),86%, transparent);
+        background: linear-gradient(var(--light) 60%, transparent) !important;
     }
 
     .page-title {
