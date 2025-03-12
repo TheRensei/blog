@@ -63,7 +63,7 @@ body:before {
     }
 
    .explorer button#mobile-explorer {
-        right: 0;
+        right: .7rem;
         position: absolute;
         top: 3.5rem;
     }
@@ -73,10 +73,11 @@ body:before {
         margin: 0 -1rem 0 -1rem;
         padding: 1rem;
         background: linear-gradient(var(--light) 60%, transparent) !important;
+        padding-top: 0;
     }
 
     .page-title {
-        font-size: 2rem;
+        font-size: 2.7rem;
     }
     
 }
