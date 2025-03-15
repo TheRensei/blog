@@ -1,6 +1,6 @@
 ---
 title: In the belly of the beast - coc scenario test
-publish: true
+publish: false
 tags:
   - scenario
   - ttrpg
