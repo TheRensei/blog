@@ -7,6 +7,7 @@ const ICON_MAPPING: Record<string, string> = {
   Far: "font-awesome-regular",
   Ra: "rpg-awesome",
   Li: "lucide-icons",
+  Co: "coolicons",
 };
 
 const iconsOptions: IconFolderOptions = {
