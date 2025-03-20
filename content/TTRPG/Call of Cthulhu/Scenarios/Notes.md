@@ -59,9 +59,19 @@ Make sure one of the PCs wins the item. They are then asked by Gordon to go get 
 
 At that time Ezra almost faints and slumps on the floor. Lee gets close to her and lets everyone know that she's fine, asks one butler for some water. 
 
-Everything proceeds the same way with ONE change - the NPC who won the dagger is gone. If PCs ask their acquaintances (if any are present) they have no memory of them and are unwilling to talk more about this - they try to avoid the topic. 
+Everything proceeds the same way with ONE change - the NPC who won the dagger is gone. If PCs ask their acquaintances (if any are present) they have no memory of them and are unwilling to talk more about this - they try to avoid the topic like it makes them uncomfortable to even think about it.
 
-The auction proceeds as before
+The auction proceeds as before and some NPCs try to take part in the auction. It continues until an NPC or player get the dagger and the necklace. The ritual is performed again and the person holding the dagger is gone. 
+
+Gordon changes with each person gone. Progressively gets older and weaker, but continues with the ritual anyway. 
+
+This will continue until one of the following happens:
+- 7 people are gone
+- Gordon is killed
+- Gordon's cane is broken
+- all investigators are killed
+
+
 
 #### End
 
@@ -70,15 +80,17 @@ questions:
 - do all pcs remember the room?
 - what if they try to escape after the first loop?
 - what happens if they die before the time reset - by any other mean than the dagger
-- how to prevent the ritual from happenig
+- how to prevent the ritual from happening
 - what happens if pcs fail
-- 
+- what if pc gets the dagger
+	- large sanity cost and and maybe memory loss but they are back at the auction
 
 
 ---
 
 ### Items:
 - invitation letter with a wax seal. The seal has an outdated and unused logo of the local printing company. The letter invites PCs to a private action. It states the time for 6pm on Saturday, the location is the mansion. There is also a map on how to get there from the main road. PCs were invited because of their known interest in the antics and stuff. The letter is written in beautiful cursive with gold framing and very good quality paper. 
+- Cursed cane - snake shaped head on a black wood cane with a metal end. Snake's head has an open mouth and sucks Gordon's blood periodically. Snakes eyes are ruby and are getting brighter with each person sacrificed.
 
 ### NPCs:
 - Harvey Connor - chubby, blond hair licked on the side, visibly sweats, socially anxious but tries. Brags about his career and stuff as a way of making himself more interesting and confident.
