@@ -22,7 +22,7 @@ Firs of all, here is a guide on what bookmarklets are and how to set them up -> 
 This bookmarklet adds a couple of buttons that let you toggle right side panels.
 
 > [!INFO]- Only Toggle panels
-> last updated: 16/03/2025
+> last updated: 20/03/2025
 > ```javascript
 > javascript: (() => {
 > 	var buttonTop = document.querySelector('.button-top');
@@ -189,6 +189,7 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 ![[alchemy-webview.webm]]
 
 > [!INFO]- Toggle Panels + Web Panel
+> last updated: 20/03/2025
 > ```javascript
 > javascript: (() => {
 > 	var buttonTop = document.querySelector('.button-top');
@@ -523,6 +524,9 @@ You should see article contents being pasted and then page would go back to the 
 ---
 
 > [!NOTE]- Changelist
+> ### 20/03/2025
+> - rewrote the web panel and added it back
+> - added new videos
 > ### 16/03/2025
 > - fixed an issue for Toggle Panels that broke alchemy
 > ### 15/03/2025
