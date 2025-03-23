@@ -307,7 +307,7 @@ Same as above, but this one also adds a new side panel that allows you to browse
 > 	const toggleSideFrame = () => {
 >         const isHidden = sideFrame.style.visibility === 'hidden';
 >         sideFrame.style.visibility = isHidden ? 'visible' : 'hidden';
->         sideFrame.style.right = isHidden ? '0px' : '-500px';
+>         sideFrame.style.right = isHidden ? '0px' : '-' +window.getComputedStyle(sideFrame).width;
 >         buttonsRight[3].querySelector('svg').style.display = isHidden ? '' : 'none';
 >     };
 > 	
