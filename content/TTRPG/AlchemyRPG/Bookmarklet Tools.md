@@ -17,251 +17,203 @@ Firs of all, here is a guide on what bookmarklets are and how to set them up -> 
 
 # Hide Panels
 
-![[alchemy-panel-toggle.webm]]
+![[alchemy-panels.webm]]
 
 This bookmarklet adds a couple of buttons that let you toggle right side panels.
 
 > [!INFO]- Only Toggle panels
-> last updated: 20/03/2025
+> last updated: 23/03/2025
 > ```javascript
 > javascript: (() => {
-> 	var buttonTop = document.querySelector('.button-top');
-> 	if(buttonTop != null){return;}
+> 	if (document.querySelector('.b-top-right')) return;
 > 	
-> 	const panelButton = document.querySelector('#root > div.css-1nnojw6 > div.css-11p8zb6 > div:nth-child(1)');
-> 	
-> 	const playerPanel = document.querySelector('#root > div.css-1nnojw6 > div.css-1eciq2 > div:nth-child(3) > div.css-1u2rm2v');
->  
+> 	const rootNode = document.querySelector('.css-1nnojw6');
+> 	const panelButton = rootNode.querySelector('.css-11p8zb6 > div:nth-child(1)');
+> 	const playerPanel = rootNode.querySelector('.css-1u2rm2v');
 > 	const scenesPanel = document.querySelector('div.pointer-events-none:nth-child(3) > div:nth-child(2)');
-> 			
-> 	var storyPanel = document.querySelector(`.css-yngso1 > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1)`);
->  
-> 	const rootNode = document.querySelector('#root > div.css-1nnojw6');
-> 	
+> 	const journalPanel = document.querySelector(".css-1e8w32g");
+> 	const parent = document.querySelector(".css-1eciq2");
+> 	let skillsPanel = document.querySelector("div.ml-a4:nth-child(2)");
+> 
 > 	const buttonHTML = `<div><div class="css-1y4t6sx"><div class="css-1gsonkp" style="width: 20px;height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" fill="white" r="5"></circle></svg></div></div></div>`;
 > 	
->  
-> 	var buttonAlchemy;
-> 	var buttonBottom;
-> 	
-> 	
-> 	buttonTop = document.createElement("div");
-> 	buttonTop.setAttribute('class', 'button-top');
-> 	buttonTop.setAttribute('style', "right: 0px;z-index: 110;position: absolute;top: calc(50% - 30px);;");
-> 	
-> 	buttonTop.innerHTML = buttonHTML;
-> 	
-> 	rootNode.prepend(buttonTop);
-> 	
-> 	buttonAlchemy = document.createElement("div");
-> 	buttonAlchemy.setAttribute('class', 'button-alchemy');
-> 	buttonAlchemy.setAttribute('style', "right: 0px;z-index: 110;position: absolute;top: 50%;");
-> 	
-> 	buttonAlchemy.innerHTML = buttonHTML;
-> 	
-> 	rootNode.prepend(buttonAlchemy);
-> 	
-> 	buttonBottom = document.createElement("div");
-> 	buttonBottom.setAttribute('class', 'button-bottom');
-> 	buttonBottom.setAttribute('style', "right: 0px;z-index: 110;position: absolute;top: calc(50% + 30px);;");
-> 	
-> 	buttonBottom.innerHTML = buttonHTML;
-> 	
-> 	rootNode.prepend(buttonBottom);
-> 	
-> 	storyPanel = document.querySelector(`.css-yngso1 > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1)`);
-> 	
-> 	const circleTop = document.querySelector('.button-top > div > div > div > svg'); 
-> 	const circleAlchemy = document.querySelector('.button-alchemy > div > div > div > svg'); 
-> 	const circleBottom = document.querySelector('.button-bottom > div > div > div > svg'); 
-> 	
+>     const createButton = (className, style) => {
+>         const button = document.createElement('div');
+>         button.className = className;
+>         button.style = style;
+>         button.innerHTML = buttonHTML;
+>         return button;
+>     };
+> 
+> 	const bStyleRight = `right: 0px;z-index: 110;position: absolute;`;
+> 	const bStyleLeft = `z-index: 110;position: absolute;`;
+> 
+> 	const buttonsRight = [
+>         createButton('b-top-right', `${bStyleRight} top: calc(50% - 30px);`),
+>         createButton('b-mid-right', `${bStyleRight} top: 50%;`),
+>         createButton('b-bot-right', `${bStyleRight} top: calc(50% + 30px);`),
+>     ];
+> 
+>     const buttonsLeft = [
+>         createButton('b-top-left', `${bStyleLeft} top: calc(50% - 30px);`),
+>         createButton('b-mid-left', `${bStyleLeft} top: 50%;`),
+>         createButton('b-bot-left', `${bStyleLeft} top: calc(50% + 30px);`)
+>     ];
+> 
+> 	[...buttonsRight, ...buttonsLeft].forEach(btn => rootNode.prepend(btn));
 > 		
-> 	const videoButton = document.querySelector(".css-11p8zb6 > div:nth-child(1) > div:nth-child(4) > div:nth-child(1)");
+> 	const videoButton = document.querySelector(".css-11p8zb6 > div:nth-child(1) > div:nth-child(4) > div:nth-child(1)");	
 > 	
-> 	const videoPanel = document.querySelector("#root > div.css-1nnojw6 > div.css-1eciq2 > div:last-child");
->  
 > 	let videoPanelFix = function(){
-> 		if(videoPanel.getAttribute("class") == "css-1n217zf") {
->  
-> 			if(playerPanel.style.display == 'none' && scenesPanel.style.display == "flex"){
-> 				panelButton.style.right = "825px";
-> 			}
-> 			else if(playerPanel.style.display == 'none' && scenesPanel.style.display == "none"){
-> 				panelButton.style.right = "400px";
-> 			}
-> 			else {
-> 				panelButton.style.right = "725px";
-> 			}
+> 		const videoPanel = document.querySelector(".css-1n217zf");
+> 		const videoPanelEnabled = videoPanel != null;
+> 
+> 		if(videoPanel!=null){
 > 			
-> 			buttonTop.style.right = "375px";
-> 			buttonAlchemy.style.right = "375px";
-> 			buttonBottom.style.right = "375px";
+> 			const rightPosition = 
+> 			(playerPanel.style.display === 'none' && scenesPanel.style.display === 'flex') 
+> 			? "825px" 
+> 			: ((playerPanel.style.display === 'none' && scenesPanel.style.display === 'none') 
+> 			? "400px" 
+> 			: "725px");
+> 			panelButton.style.right = videoPanelEnabled ? rightPosition : "0px";
 > 		}
-> 		else
-> 		{
-> 			buttonTop.style.right = "0px";
-> 			buttonAlchemy.style.right = "0px";
-> 			buttonBottom.style.right = "0px";
-> 		}
+> 
+> 		buttonsRight.forEach(btn => btn.style.right = videoPanelEnabled ? "375px" : "0px");
 > 	};
->  
->  
+> 
 > 	
 > 	if(videoButton != null)
 > 	{
-> 		videoButton.addEventListener("click", () => {setTimeout(() => { panelCheck()}, 100)});
+> 		videoButton.addEventListener("click", () => {setTimeout(() => { panelSizeEval()}, 100)});
 > 	}
->  
+> 
+> 	let updateCirclesRight = function() {
+> 		let topLeftVisible = playerPanel.style.display !== "none";
+> 		let botLeftVisible = scenesPanel.style.display !== "none";
 > 	
-> 	let panelCheck = function() {			
-> 		
-> 		circleAlchemy.style.display = "";
-> 		
-> 		if(playerPanel.style.display == 'none' && scenesPanel.style.display == "flex"){
-> 			panelButton.style.right = "450px";
-> 		}
-> 		else if(playerPanel.style.display == 'none' && scenesPanel.style.display == "none"){
-> 			panelButton.style.right = "25px";
-> 			circleAlchemy.style.display = "none";
-> 		}
-> 		else {
-> 			panelButton.style.right = "350px";
-> 		}
-> 		
+> 		buttonsRight[0].querySelector('svg').style.display = topLeftVisible ? "" : "none";
+> 		buttonsRight[1].querySelector('svg').style.display = (topLeftVisible || botLeftVisible) ? "" : "none";
+> 		buttonsRight[2].querySelector('svg').style.display = botLeftVisible ? "" : "none";
+> 	};
+> 	
+> 	let panelSizeEval = function() {			
+> 
+> 		panelButton.style.right = (playerPanel.style.display === 'none') ? (scenesPanel.style.display === 'flex' ? "450px" : "25px") : "350px";
+> 
 > 		if(videoButton != null)
 > 		{
 > 			videoPanelFix();
 > 		}
-> 		
-> 		circleTop.style.display = playerPanel.style.display;
-> 		circleBottom.style.display = scenesPanel.style.display;	
-> 	};
->  
-> 	let toggleTop = function() {
-> 		if(playerPanel.style.display == 'none'){
-> 			playerPanel.style.display = "";
-> 		}
-> 		else{
-> 			playerPanel.style.display = 'none';
-> 		}
-> 		
-> 		panelCheck();
+> 
+> 		updateCirclesRight();
 > 	};
 > 	
-> 	let defaultAlchemy = function() {
-> 		if(playerPanel.style.display == 'none' || scenesPanel.style.display == "none"){
-> 			playerPanel.style.display = "";
-> 			scenesPanel.style.display = "flex";	
-> 			circleAlchemy.style.display = "";			
-> 		}
-> 		else {				
-> 			playerPanel.style.display = "none";
-> 			scenesPanel.style.display = "none";
-> 			circleAlchemy.style.display = "none";
-> 		}
->  
+> 	let toggleMidRight = function() {
+> 
+> 		let isHidden = (playerPanel.style.display === 'none') || (scenesPanel.style.display === "none");
+> 
+> 		playerPanel.style.display = isHidden ? "" : "none";
+> 		scenesPanel.style.display = isHidden ? "flex" : "none";
 > 		
-> 		panelCheck();
+> 		panelSizeEval();
 > 	};
 > 	
-> 	let toggleBottom = function() {
-> 		if(scenesPanel.style.display == "none"){
-> 			scenesPanel.style.display = "flex";
-> 		}
-> 		else{
-> 			scenesPanel.style.display = "none";
-> 		}	
-> 		
-> 		panelCheck();
+> 	let updateCirclesLeft = function() {
+> 		let topLeftVisible = journalPanel.style.display !== "none";
+> 		let botLeftVisible = skillsPanel && skillsPanel.style.display !== "none";
+> 	
+> 		buttonsLeft[0].querySelector('svg').style.display = topLeftVisible ? "" : "none";
+> 		buttonsLeft[1].querySelector('svg').style.display = (topLeftVisible || botLeftVisible) ? "" : "none";
+> 		buttonsLeft[2].querySelector('svg').style.display = botLeftVisible ? "" : "none";
 > 	};
 > 	
->  
->  
-> 	buttonTop.addEventListener("click", toggleTop);
-> 	buttonAlchemy.addEventListener("click", defaultAlchemy);
-> 	buttonBottom.addEventListener("click", toggleBottom);
->  
+> 	let toggleMidLeft = function() {
+> 		skillsPanel = document.querySelector("div.ml-a4:nth-child(2)");
+> 		
+> 		let isHidden = (journalPanel.style.display === 'none') || (skillsPanel && skillsPanel.style.display === "none");
+> 	
+> 		journalPanel.style.display = isHidden ? "" : "none";
+> 		if (skillsPanel) skillsPanel.style.display = isHidden ? "" : "none";
+> 		
+> 		updateCirclesLeft();
+> 	};
+> 	
+> 	const toggleDisplay = (element) => {
+>         element.style.display = element.style.display === 'none' ? '' : 'none';
+>     };
+> 	
+> 	
+> 	buttonsRight[0].addEventListener("click", () => { toggleDisplay(playerPanel); panelSizeEval(); });
+> 	buttonsRight[1].addEventListener("click", toggleMidRight);
+> 	buttonsRight[2].addEventListener("click", () => { toggleDisplay(scenesPanel); panelSizeEval(); });
+> 
+> 	buttonsLeft[0].addEventListener("click", () => { toggleDisplay(journalPanel); updateCirclesLeft();});
+> 	buttonsLeft[1].addEventListener("click", toggleMidLeft);
+> 	buttonsLeft[2].addEventListener("click", () => {
+> 		skillsPanel = document.querySelector("div.ml-a4:nth-child(2)");
+>         if (skillsPanel) {toggleDisplay(skillsPanel);updateCirclesLeft();}
+>     });
+> 
 > })();
 > ```
 
 ## Hide Panels + web page embed
 
-![[alchemy-webview.webm]]
+![[alchemy-web.webm]]
 
 > [!INFO]- Toggle Panels + Web Panel
-> last updated: 20/03/2025
+> last updated: 23/03/2025
 > ```javascript
 > javascript: (() => {
-> 	var buttonTop = document.querySelector('.button-top');
-> 	if(buttonTop != null){return;}
+> 	if (document.querySelector('.b-top-right')) return;
 > 	
-> 	const panelButton = document.querySelector('#root > div.css-1nnojw6 > div.css-11p8zb6 > div:nth-child(1)');
-> 	
-> 	const playerPanel = document.querySelector('#root > div.css-1nnojw6 > div.css-1eciq2 > div:nth-child(3) > div.css-1u2rm2v');
-> 
+> 	const rootNode = document.querySelector('.css-1nnojw6');
+> 	const panelButton = rootNode.querySelector('.css-11p8zb6 > div:nth-child(1)');
+> 	const playerPanel = rootNode.querySelector('.css-1u2rm2v');
 > 	const scenesPanel = document.querySelector('div.pointer-events-none:nth-child(3) > div:nth-child(2)');
-> 			
-> 	var storyPanel = document.querySelector(`.css-yngso1 > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1)`);
+> 	const journalPanel = document.querySelector(".css-1e8w32g");
+> 	const parent = document.querySelector(".css-1eciq2");
+> 	let skillsPanel = document.querySelector("div.ml-a4:nth-child(2)");
 > 
-> 	const rootNode = document.querySelector('#root > div.css-1nnojw6');
-> 	
 > 	const buttonHTML = `<div><div class="css-1y4t6sx"><div class="css-1gsonkp" style="width: 20px;height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" fill="white" r="5"></circle></svg></div></div></div>`;
 > 	
+>     const createButton = (className, style) => {
+>         const button = document.createElement('div');
+>         button.className = className;
+>         button.style = style;
+>         button.innerHTML = buttonHTML;
+>         return button;
+>     };
 > 
-> 	var buttonAlchemy;
-> 	var buttonBottom;
-> 	var buttonWeb;
-> 	var sideFrame;
-> 	
-> 	
-> 	buttonTop = document.createElement("div");
-> 	buttonTop.setAttribute('class', 'button-top');
-> 	buttonTop.setAttribute('style', "right: 0px;z-index: 110;position: absolute;top: calc(50% - 30px);;");
-> 	
-> 	buttonTop.innerHTML = buttonHTML;
-> 	
-> 	rootNode.prepend(buttonTop);
-> 	
-> 	buttonAlchemy = document.createElement("div");
-> 	buttonAlchemy.setAttribute('class', 'button-alchemy');
-> 	buttonAlchemy.setAttribute('style', "right: 0px;z-index: 110;position: absolute;top: 50%;");
-> 	
-> 	buttonAlchemy.innerHTML = buttonHTML;
-> 	
-> 	rootNode.prepend(buttonAlchemy);
-> 	
-> 	buttonBottom = document.createElement("div");
-> 	buttonBottom.setAttribute('class', 'button-bottom');
-> 	buttonBottom.setAttribute('style', "right: 0px;z-index: 110;position: absolute;top: calc(50% + 30px);;");
-> 	
-> 	buttonBottom.innerHTML = buttonHTML;
-> 	
-> 	rootNode.prepend(buttonBottom);
-> 	
-> 	buttonWeb = document.createElement("div");
-> 	buttonWeb.setAttribute('class', 'button-web');
-> 	buttonWeb.setAttribute('style', "right: 0px;z-index: 110;position: absolute;top: calc(50% + 90px);;");
-> 	
-> 	buttonWeb.innerHTML = buttonHTML;
-> 	
-> 	rootNode.prepend(buttonWeb);
+> 	const bStyleRight = `right: 0px;z-index: 110;position: absolute;`;
+> 	const bStyleLeft = `z-index: 110;position: absolute;`;
 > 
-> 	
-> 	const sideFrameHTML = `<div class="pointer-events-none flex-[1.2] flex-row" style="opacity: 1; transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out; display: flex;"><div style="display: flex; flex: 1 1 0%;pointer-events: auto;"><div class="css-1qb42ku"><div style="height: 100%;"> <iframe style="height: 100%" allowtransparency="true" src="https://app.alchemyrpg.com/universe"> </div></iframe></div></div></div></div>`;
+> 	const buttonsRight = [
+>         createButton('b-top-right', `${bStyleRight} top: calc(50% - 30px);`),
+>         createButton('b-mid-right', `${bStyleRight} top: 50%;`),
+>         createButton('b-bot-right', `${bStyleRight} top: calc(50% + 30px);`),
+>         createButton('b-web-right', `${bStyleRight} top: calc(50% + 90px);`)
+>     ];
+> 
+>     const buttonsLeft = [
+>         createButton('b-top-left', `${bStyleLeft} top: calc(50% - 30px);`),
+>         createButton('b-mid-left', `${bStyleLeft} top: 50%;`),
+>         createButton('b-bot-left', `${bStyleLeft} top: calc(50% + 30px);`)
+>     ];
+> 
+> 	[...buttonsRight, ...buttonsLeft].forEach(btn => rootNode.prepend(btn));
 > 	
 > 
-> 	const parent = document.querySelector(".css-1eciq2");
-> 	
-> 	sideFrame = document.createElement("div");
-> 	sideFrame.innerHTML = sideFrameHTML;
+> 	const sideFrame = document.createElement('div');
+> 	sideFrame.innerHTML = `<div class="pointer-events-none flex-[1.2] flex-row" style="opacity: 1; transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out; display: flex;"><div style="display: flex; flex: 1 1 0%;pointer-events: auto;"><div class="css-1qb42ku"><div style="height: 100%;"> <iframe style="height: 100%" allowtransparency="true" src="https://app.alchemyrpg.com/universe"> </div></iframe></div></div></div></div>`;
 > 	sideFrame.setAttribute("class", "side-frame pointer-events-none flex flex-col");
-> 	sideFrame.setAttribute("style", "width: 420px; height:100%; right:0; z-index:100; opacity: 1; transition: right 0.5s, visibility 0.5s; position: absolute; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; backdrop-filter: blur(4px); box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 8px; padding: 1rem; visibility: visible;"); 
+> 	sideFrame.setAttribute("style", "width: 420px; height:100%; right:0; z-index:100; opacity: 1; transition: right 0.5s, visibility 0.5s; position: absolute; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; backdrop-filter: blur(4px); box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 8px; padding: 1rem; visibility: hidden; right:-500px;"); 
 > 	parent.insertBefore(sideFrame, document.querySelector(".css-1z8k67"));
 > 	
 > 	const iFrame = document.querySelector(".side-frame iframe");
-> 	
-> 	iFrame.addEventListener("load", function() {
-> 		let style = iFrame.contentDocument.createElement('style');
+>     iFrame.addEventListener('load', () => {
+>         const style = document.createElement('style');
 > 	
 > 		style.textContent = `
 > 		body, .css-qf31dt {background: none transparent;}
@@ -271,159 +223,126 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 > 		#article-container > span {margin: 0 10px 0 10px;}
 > 		.css-1t5qye {display: none;}
 > 		#article-container > div.css-1myary0 {margin: 0;}
-> 		@media (max-width: 1180px) {.css-jlcn98 {left:0px; z-index:100;}
-> 		.css-pt8yvr {display:flex; } 
-> 		.css-ung3sv{border-radius: 10px; background-color: rgb(16 18 23 / 94%); opacity: 0.5;} 
-> 		.css-ung3sv {::marker {content: ""}}
-> 		.css-ung3sv > :nth-child(1) {margin-left: 1rem; }
-> 		.css-ung3sv:hover {opacity:1;}
-> 		.css-ung3sv:hover .css-v2leea, .css-ung3sv:hover > ul > :nth-child(1) > ul {display: inherit;}
-> 		.css-jlcn98 {padding: 0;}
-> 		.css-v2leea, .css-ung3sv > ul > :nth-child(1) > ul {display: none;}
-> 		.css-ung3sv > ul > :nth-child(1) {display: inherit;}
-> 		`;
+> 		@media (max-width: 1180px) {
+> 			.css-jlcn98 { left: 0; z-index: 100; padding: 0; }
+> 			.css-pt8yvr {display:flex; } 
+> 			.css-ung3sv {border-radius: 10px; background-color: rgb(16 18 23 / 94%); opacity: 0.5;} 
+> 			.css-ung3sv {::marker {content: ""}}
+> 			.css-ung3sv > :nth-child(1) {margin-left: 1rem; }
+> 			.css-ung3sv:hover {opacity:1;}
+> 			.css-ung3sv:hover .css-v2leea, .css-ung3sv:hover > ul > :nth-child(1) > ul {display: inherit;}
+> 			.css-v2leea, .css-ung3sv > ul > :nth-child(1) > ul {display: none;}
+> 			.css-ung3sv > ul > :nth-child(1) {display: inherit;}
+> 		}`;
 > 		
 > 		iFrame.contentDocument.head.appendChild(style);
 > 	});
-> 	
-> 	sideFrame.style.visibility = "hidden";
-> 	
-> 	storyPanel = document.querySelector(`.css-yngso1 > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1)`);
-> 	
-> 	const circleTop = document.querySelector('.button-top > div > div > div > svg'); 
-> 	const circleAlchemy = document.querySelector('.button-alchemy > div > div > div > svg'); 
-> 	const circleBottom = document.querySelector('.button-bottom > div > div > div > svg'); 
-> 	const circleWeb = document.querySelector('.button-web > div > div > div > svg');
-> 	
 > 		
-> 	const videoButton = document.querySelector(".css-11p8zb6 > div:nth-child(1) > div:nth-child(4) > div:nth-child(1)");
+> 	const videoButton = document.querySelector(".css-11p8zb6 > div:nth-child(1) > div:nth-child(4) > div:nth-child(1)");	
 > 	
-> 	const videoPanel = document.querySelector("#root > div.css-1nnojw6 > div.css-1eciq2 > div:last-child");
-> 
 > 	let videoPanelFix = function(){
-> 		if(videoPanel.getAttribute("class") == "css-1n217zf") {
+> 		const videoPanel = document.querySelector(".css-1n217zf");
+> 		const videoPanelEnabled = videoPanel != null;
 > 
-> 			if(playerPanel.style.display == 'none' && scenesPanel.style.display == "flex"){
-> 				panelButton.style.right = "825px";
-> 			}
-> 			else if(playerPanel.style.display == 'none' && scenesPanel.style.display == "none"){
-> 				panelButton.style.right = "400px";
-> 			}
-> 			else {
-> 				panelButton.style.right = "725px";
-> 			}
+> 		if(videoPanel!=null){
 > 			
-> 			buttonTop.style.right = "375px";
-> 			buttonAlchemy.style.right = "375px";
-> 			buttonBottom.style.right = "375px";
+> 			const rightPosition = 
+> 			(playerPanel.style.display === 'none' && scenesPanel.style.display === 'flex') 
+> 			? "825px" 
+> 			: ((playerPanel.style.display === 'none' && scenesPanel.style.display === 'none') 
+> 			? "400px" 
+> 			: "725px");
+> 			panelButton.style.right = videoPanelEnabled ? rightPosition : "0px";
 > 		}
-> 		else
-> 		{
-> 			buttonTop.style.right = "0px";
-> 			buttonAlchemy.style.right = "0px";
-> 			buttonBottom.style.right = "0px";
-> 		}
+> 
+> 		buttonsRight.forEach(btn => btn.style.right = videoPanelEnabled ? "375px" : "0px");
 > 	};
 > 
 > 	
 > 	if(videoButton != null)
 > 	{
-> 		videoButton.addEventListener("click", () => {setTimeout(() => { panelCheck()}, 100)});
+> 		videoButton.addEventListener("click", () => {setTimeout(() => { panelSizeEval()}, 100)});
 > 	}
 > 
+> 	let updateCirclesRight = function() {
+> 		let topLeftVisible = playerPanel.style.display !== "none";
+> 		let botLeftVisible = scenesPanel.style.display !== "none";
 > 	
-> 	let panelCheck = function() {			
-> 		
-> 		circleAlchemy.style.display = "";
-> 		
-> 		if(playerPanel.style.display == 'none' && scenesPanel.style.display == "flex"){
-> 			panelButton.style.right = "450px";
-> 		}
-> 		else if(playerPanel.style.display == 'none' && scenesPanel.style.display == "none"){
-> 			panelButton.style.right = "25px";
-> 			circleAlchemy.style.display = "none";
-> 		}
-> 		else {
-> 			panelButton.style.right = "350px";
-> 		}
-> 		
+> 		buttonsRight[0].querySelector('svg').style.display = topLeftVisible ? "" : "none";
+> 		buttonsRight[1].querySelector('svg').style.display = (topLeftVisible || botLeftVisible) ? "" : "none";
+> 		buttonsRight[2].querySelector('svg').style.display = botLeftVisible ? "" : "none";
+> 	};
+> 	
+> 	let panelSizeEval = function() {			
+> 
+> 		panelButton.style.right = (playerPanel.style.display === 'none') ? (scenesPanel.style.display === 'flex' ? "450px" : "25px") : "350px";
+> 
 > 		if(videoButton != null)
 > 		{
 > 			videoPanelFix();
 > 		}
-> 		
-> 		circleTop.style.display = playerPanel.style.display;
-> 		circleBottom.style.display = scenesPanel.style.display;	
-> 	};
 > 
-> 	let toggleTop = function() {
-> 		if(playerPanel.style.display == 'none'){
-> 			playerPanel.style.display = "";
-> 		}
-> 		else{
-> 			playerPanel.style.display = 'none';
-> 		}
-> 		
-> 		panelCheck();
+> 		updateCirclesRight();
 > 	};
 > 	
-> 	let defaultAlchemy = function() {
-> 		if(playerPanel.style.display == 'none' || scenesPanel.style.display == "none"){
-> 			playerPanel.style.display = "";
-> 			scenesPanel.style.display = "flex";	
-> 			circleAlchemy.style.display = "";			
-> 		}
-> 		else {				
-> 			playerPanel.style.display = "none";
-> 			scenesPanel.style.display = "none";
-> 			circleAlchemy.style.display = "none";
-> 		}
+> 	let toggleMidRight = function() {
 > 
+> 		let isHidden = (playerPanel.style.display === 'none') || (scenesPanel.style.display === "none");
+> 
+> 		playerPanel.style.display = isHidden ? "" : "none";
+> 		scenesPanel.style.display = isHidden ? "flex" : "none";
 > 		
-> 		panelCheck();
-> 	};
-> 	
-> 	let toggleBottom = function() {
-> 		if(scenesPanel.style.display == "none"){
-> 			scenesPanel.style.display = "flex";
-> 		}
-> 		else{
-> 			scenesPanel.style.display = "none";
-> 		}	
-> 		
-> 		panelCheck();
-> 	};
-> 	
-> 	circleWeb.style.display = "none";
-> 	
-> 	let toggleWeb = function()
-> 	{
-> 		if(sideFrame.style.visibility == "hidden") {
-> 			sideFrame.style.visibility = "visible";
-> 			sideFrame.style.right = "0px";
-> 			circleWeb.style.display = "";
-> 		}
-> 		else {
-> 			sideFrame.style.visibility = "hidden";
-> 			sideFrame.style.right = "-500px";
-> 			circleWeb.style.display = "none";
-> 			
-> 			if(iFrame.getAttribute("src") == null)
-> 			{
-> 				iFrame.setAttribute("src", "https://app.alchemyrpg.com/universe"); 
-> 			}
-> 		}
+> 		panelSizeEval();
 > 	};
 > 	
 > 
-> 	buttonTop.addEventListener("click", toggleTop);
-> 	buttonAlchemy.addEventListener("click", defaultAlchemy);
-> 	buttonBottom.addEventListener("click", toggleBottom);
-> 	buttonWeb.addEventListener("click", toggleWeb);
+> 	buttonsRight[3].querySelector('svg').style.display = 'none';
+> 	const toggleSideFrame = () => {
+>         const isHidden = sideFrame.style.visibility === 'hidden';
+>         sideFrame.style.visibility = isHidden ? 'visible' : 'hidden';
+>         sideFrame.style.right = isHidden ? '0px' : '-500px';
+>         buttonsRight[3].querySelector('svg').style.display = isHidden ? '' : 'none';
+>     };
+> 	
+> 	let updateCirclesLeft = function() {
+> 		let topLeftVisible = journalPanel.style.display !== "none";
+> 		let botLeftVisible = skillsPanel && skillsPanel.style.display !== "none";
+> 	
+> 		buttonsLeft[0].querySelector('svg').style.display = topLeftVisible ? "" : "none";
+> 		buttonsLeft[1].querySelector('svg').style.display = (topLeftVisible || botLeftVisible) ? "" : "none";
+> 		buttonsLeft[2].querySelector('svg').style.display = botLeftVisible ? "" : "none";
+> 	};
+> 	
+> 	let toggleMidLeft = function() {
+> 		skillsPanel = document.querySelector("div.ml-a4:nth-child(2)");
+> 		
+> 		let isHidden = (journalPanel.style.display === 'none') || (skillsPanel && skillsPanel.style.display === "none");
+> 	
+> 		journalPanel.style.display = isHidden ? "" : "none";
+> 		if (skillsPanel) skillsPanel.style.display = isHidden ? "" : "none";
+> 		
+> 		updateCirclesLeft();
+> 	};
+> 	
+> 	const toggleDisplay = (element) => {
+>         element.style.display = element.style.display === 'none' ? '' : 'none';
+>     };
+> 	
+> 	
+> 	buttonsRight[0].addEventListener("click", () => { toggleDisplay(playerPanel); panelSizeEval(); });
+> 	buttonsRight[1].addEventListener("click", toggleMidRight);
+> 	buttonsRight[2].addEventListener("click", () => { toggleDisplay(scenesPanel); panelSizeEval(); });
+> 	buttonsRight[3].addEventListener("click", toggleSideFrame);
+> 
+> 	buttonsLeft[0].addEventListener("click", () => { toggleDisplay(journalPanel); updateCirclesLeft();});
+> 	buttonsLeft[1].addEventListener("click", toggleMidLeft);
+> 	buttonsLeft[2].addEventListener("click", () => {
+> 		skillsPanel = document.querySelector("div.ml-a4:nth-child(2)");
+>         if (skillsPanel) {toggleDisplay(skillsPanel);updateCirclesLeft();}
+>     });
 > 
 > })();
 > ```
-> 
 
 # Upload .md files as articles
 
@@ -524,6 +443,9 @@ You should see article contents being pasted and then page would go back to the 
 ---
 
 > [!NOTE]- Changelist
+> ### 23/03/2025
+> - added more panel toggle options
+> - cleaned up the code
 > ### 20/03/2025
 > - rewrote the web panel and added it back
 > - added new videos
@@ -531,3 +453,4 @@ You should see article contents being pasted and then page would go back to the 
 > - fixed an issue for Toggle Panels that broke alchemy
 > ### 15/03/2025
 > - added first version of the bookmarklets
+
