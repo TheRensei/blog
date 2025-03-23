@@ -19,11 +19,11 @@ Firs of all, here is a guide on what bookmarklets are and how to set them up -> 
 
 ![[alchemy-panels.webm]]
 
-This bookmarklet adds a couple of buttons that let you toggle right side panels.
+This bookmarklet adds a couple of buttons that let you toggle side panels.
 
 > [!INFO]- Only Toggle panels
 > last updated: 23/03/2025
-> ```javascript
+> ```jsx
 > javascript: (() => {
 > 	if (document.querySelector('.b-top-right')) return;
 > 	
@@ -160,11 +160,13 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 
 ## Hide Panels + web page embed
 
-![[alchemy-web.webm]]
+![[alchemy-web-0.webm]]
+
+Same as above, but this one also adds a new side panel that allows you to browse alchemy universes.
 
 > [!INFO]- Toggle Panels + Web Panel
 > last updated: 23/03/2025
-> ```javascript
+> ```jsx
 > javascript: (() => {
 > 	if (document.querySelector('.b-top-right')) return;
 > 	
@@ -175,7 +177,7 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 > 	const journalPanel = document.querySelector(".css-1e8w32g");
 > 	const parent = document.querySelector(".css-1eciq2");
 > 	let skillsPanel = document.querySelector("div.ml-a4:nth-child(2)");
-> 
+>  
 > 	const buttonHTML = `<div><div class="css-1y4t6sx"><div class="css-1gsonkp" style="width: 20px;height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" fill="white" r="5"></circle></svg></div></div></div>`;
 > 	
 >     const createButton = (className, style) => {
@@ -185,32 +187,37 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 >         button.innerHTML = buttonHTML;
 >         return button;
 >     };
-> 
+>  
 > 	const bStyleRight = `right: 0px;z-index: 110;position: absolute;`;
 > 	const bStyleLeft = `z-index: 110;position: absolute;`;
-> 
+>  
 > 	const buttonsRight = [
 >         createButton('b-top-right', `${bStyleRight} top: calc(50% - 30px);`),
 >         createButton('b-mid-right', `${bStyleRight} top: 50%;`),
 >         createButton('b-bot-right', `${bStyleRight} top: calc(50% + 30px);`),
 >         createButton('b-web-right', `${bStyleRight} top: calc(50% + 90px);`)
 >     ];
-> 
+>  
 >     const buttonsLeft = [
 >         createButton('b-top-left', `${bStyleLeft} top: calc(50% - 30px);`),
 >         createButton('b-mid-left', `${bStyleLeft} top: 50%;`),
 >         createButton('b-bot-left', `${bStyleLeft} top: calc(50% + 30px);`)
 >     ];
-> 
+>  
 > 	[...buttonsRight, ...buttonsLeft].forEach(btn => rootNode.prepend(btn));
 > 	
-> 
+>  
 > 	const sideFrame = document.createElement('div');
-> 	sideFrame.innerHTML = `<div class="pointer-events-none flex-[1.2] flex-row" style="opacity: 1; transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out; display: flex;"><div style="display: flex; flex: 1 1 0%;pointer-events: auto;"><div class="css-1qb42ku"><div style="height: 100%;"> <iframe style="height: 100%" allowtransparency="true" src="https://app.alchemyrpg.com/universe"> </div></iframe></div></div></div></div>`;
+> 	sideFrame.innerHTML = `<div class="pointer-events-none flex-[1.2] flex-row" style="opacity: 1; transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out; display: flex;"><div class="side-pointer-toggle" style="display: flex; flex: 1 1 0%;pointer-events: auto;"><div class="css-1qb42ku"><div style="height: 100%;"> <iframe style="height: 100%" allowtransparency="true" src="https://app.alchemyrpg.com/universe"> </div></iframe></div></div></div></div>`;
 > 	sideFrame.setAttribute("class", "side-frame pointer-events-none flex flex-col");
 > 	sideFrame.setAttribute("style", "width: 420px; height:100%; right:0; z-index:100; opacity: 1; transition: right 0.5s, visibility 0.5s; position: absolute; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; backdrop-filter: blur(4px); box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 8px; padding: 1rem; visibility: hidden; right:-500px;"); 
 > 	parent.insertBefore(sideFrame, document.querySelector(".css-1z8k67"));
-> 	
+> 	const resizeButton = document.createElement('div');
+> 	resizeButton.setAttribute("class", "web-resize");
+> 	resizeButton.setAttribute("style", "position: absolute;height: 100%;;cursor: pointer; margin-left:-10px; z-index:100; pointer-events: auto;");
+> 	resizeButton.innerHTML = (`<div style="align-items: center; transform: none; top: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="6" height="14" viewBox="0 0 6 14" style=""><g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1" opacity="0.5"><g fill="rgba(255, 255, 255, 0.5)" transform="translate(-20 -98)"><g transform="translate(20 98)"><path d="M1 10a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm4-4a1 1 0 100-2 1 1 0 000 2zM1 2a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2zm0 12a1 1 0 100-2 1 1 0 000 2zM1 6a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2z"></path></g></g></g></svg></div>`);
+> 	sideFrame.appendChild(resizeButton);
+> 
 > 	const iFrame = document.querySelector(".side-frame iframe");
 >     iFrame.addEventListener('load', () => {
 >         const style = document.createElement('style');
@@ -243,7 +250,7 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 > 	let videoPanelFix = function(){
 > 		const videoPanel = document.querySelector(".css-1n217zf");
 > 		const videoPanelEnabled = videoPanel != null;
-> 
+>  
 > 		if(videoPanel!=null){
 > 			
 > 			const rightPosition = 
@@ -254,16 +261,16 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 > 			: "725px");
 > 			panelButton.style.right = videoPanelEnabled ? rightPosition : "0px";
 > 		}
-> 
+>  
 > 		buttonsRight.forEach(btn => btn.style.right = videoPanelEnabled ? "375px" : "0px");
 > 	};
-> 
+>  
 > 	
 > 	if(videoButton != null)
 > 	{
 > 		videoButton.addEventListener("click", () => {setTimeout(() => { panelSizeEval()}, 100)});
 > 	}
-> 
+>  
 > 	let updateCirclesRight = function() {
 > 		let topLeftVisible = playerPanel.style.display !== "none";
 > 		let botLeftVisible = scenesPanel.style.display !== "none";
@@ -274,28 +281,28 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 > 	};
 > 	
 > 	let panelSizeEval = function() {			
-> 
+>  
 > 		panelButton.style.right = (playerPanel.style.display === 'none') ? (scenesPanel.style.display === 'flex' ? "450px" : "25px") : "350px";
-> 
+>  
 > 		if(videoButton != null)
 > 		{
 > 			videoPanelFix();
 > 		}
-> 
+>  
 > 		updateCirclesRight();
 > 	};
 > 	
 > 	let toggleMidRight = function() {
-> 
+>  
 > 		let isHidden = (playerPanel.style.display === 'none') || (scenesPanel.style.display === "none");
-> 
+>  
 > 		playerPanel.style.display = isHidden ? "" : "none";
 > 		scenesPanel.style.display = isHidden ? "flex" : "none";
 > 		
 > 		panelSizeEval();
 > 	};
 > 	
-> 
+>  
 > 	buttonsRight[3].querySelector('svg').style.display = 'none';
 > 	const toggleSideFrame = () => {
 >         const isHidden = sideFrame.style.visibility === 'hidden';
@@ -333,7 +340,7 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 > 	buttonsRight[1].addEventListener("click", toggleMidRight);
 > 	buttonsRight[2].addEventListener("click", () => { toggleDisplay(scenesPanel); panelSizeEval(); });
 > 	buttonsRight[3].addEventListener("click", toggleSideFrame);
-> 
+>  
 > 	buttonsLeft[0].addEventListener("click", () => { toggleDisplay(journalPanel); updateCirclesLeft();});
 > 	buttonsLeft[1].addEventListener("click", toggleMidLeft);
 > 	buttonsLeft[2].addEventListener("click", () => {
@@ -341,9 +348,33 @@ This bookmarklet adds a couple of buttons that let you toggle right side panels.
 >         if (skillsPanel) {toggleDisplay(skillsPanel);updateCirclesLeft();}
 >     });
 > 
+> 	sideFrame.style.maxWidth = "66%";
+> 	sideFrame.style.minWidth = "15%";
+> 
+> 	resizeButton.addEventListener('mousedown', initDrag, false);
+> 	const sidePanelPointer = document.querySelector(".side-pointer-toggle");
+> 
+> 	var startX, startWidth;
+> 
+> 	function initDrag(e) {
+> 		startX = e.clientX;
+> 		startWidth = parseInt(document.defaultView.getComputedStyle(sideFrame).width, 10);
+> 		document.documentElement.addEventListener('mousemove', doDrag, false);
+> 		document.documentElement.addEventListener('mouseup', stopDrag, false);
+> 		sidePanelPointer.style.pointerEvents = "none";
+> 	}
+> 
+> 	function doDrag(e) {
+> 		sideFrame.style.width = (startWidth - e.clientX + startX) + 'px';
+> 	}
+> 
+> 	function stopDrag(e) {
+> 		document.documentElement.removeEventListener('mousemove', doDrag, false);    document.documentElement.removeEventListener('mouseup', stopDrag, false);
+> 		sidePanelPointer.style.pointerEvents = "auto";
+> 	}
+>  
 > })();
 > ```
-
 # Upload .md files as articles
 
 This bookmarklet lets you upload your .md files to alchemy as articles. It sets the title from the file name and content from the inside of the file.
@@ -445,7 +476,8 @@ You should see article contents being pasted and then page would go back to the 
 > [!NOTE]- Changelist
 > ### 23/03/2025
 > - added more panel toggle options
-> - cleaned up the code
+> - added web panel resizing
+> - cleanup
 > ### 20/03/2025
 > - rewrote the web panel and added it back
 > - added new videos
@@ -453,4 +485,3 @@ You should see article contents being pasted and then page would go back to the 
 > - fixed an issue for Toggle Panels that broke alchemy
 > ### 15/03/2025
 > - added first version of the bookmarklets
-
