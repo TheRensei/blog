@@ -1,23 +1,17 @@
 ---
-title: In the belly of the beast - coc scenario test
+title: <% tp.file.title %>
 publish: false
 tags:
   - scenario
   - ttrpg
-  - call-of-cthulhu
-  - one-shot
-icon: RaSnake
 ---
 
->[!tldr] Overview
->
+>[!tldr] {{title}}
 > **Hook:** A brief 2-3 sentence summary of the premise.
 > **Tone & Themes:** Cosmic horror, investigative, psychological, etc.
 > **Intended Playtime:** Short session, multi-session, etc.
 > **Recommended Player Count:** Number of investigators/characters.
-
-^a2ca75
-
+>
 
 ---
 
